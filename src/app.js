@@ -4,6 +4,7 @@ const hbs=require('hbs');
 const request =require('request');
 const geocode=require('./utils/geocode');
 const forecast =require('./utils/forecast');
+const location= require('./utils/location');
 const ip = require('ip');
 
 const app = express()
@@ -28,7 +29,7 @@ app.get('', (req, res) => {
         title: 'Weather',
         name: 'Saksham Madaan'
     })
-    console.log(req. socket. remoteAddress)
+    console.log(req.socket.remoteAddress)
     console.log(req.ip);
     console.log(ip.address());
 })
@@ -55,15 +56,15 @@ app.get('/weather', (req, res) => {
         })
     }
     else{
-        geocode(req.query.address,(error,{latitude,longitude,location}={})=>{
-            if(error){
-               return res.send({error});
-            }
+        location(ip.address(),(latitude,longitude)=>{
+            // if(error){
+            //    return res.send({error});
+            // }
             forecast(latitude,longitude,(error,data)=>{
                 if(error)
                 return res.send({error});
                 return res.send({
-                    location: location,
+                    // location: "Temprature near you",
                     data:data,
                     address:req.query.address
                 });

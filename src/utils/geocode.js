@@ -19,4 +19,7 @@ const geocode=(address,callback)=>{
      }
 })
 }
+geocode("hisar",(error,data)=>{
+    console.log(error);
+})
 module.exports=geocode
